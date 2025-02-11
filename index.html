@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map + GeoJSON + Tileset Example</title>
+
+ 
+  <script src='https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css' rel='stylesheet' />
+
+
+  <link rel="stylesheet" href="style.css">
+
+
+  <style>
+  
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #ffcccc, #ccffcc, #ccccff);
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; 
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Lab 2</h1>
+  <p>Here is a NOT-That-Boring page for Lab 2.</p>
+
+
+  <div id="map" style="width: 700px; height: 400px; margin: 0 auto;"></div>
+
+
+  <script>
+
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic29kYWFhYWFhIiwiYSI6ImNtNW9kN2ljbzBrcG8ybG9tdG90anE3aGgifQ.rSB64rW_H8KCYtatGd1Btg';
+
+ 
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/sodaaaaaa/cm6zs37p800cd01qqa3b58y78', 
+      center: [-79.6533, 43.5899],
+      zoom: 14
+    });
+
+
+    map.on('load', () => {
+
+      map.addSource('My Home', {
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/sodasodasosoda/Lab-2-GeoJSON/refs/heads/main/My%20Home%20in%20Mississauga.geojson'
+    
+      });
+
+
+      map.addSource('MyBaseMap', {
+        type: 'vector',
+        url: 'mapbox://yourusername.yourtilesetid'
+      });
+
+ 
+      map.addLayer({
+        id: 'My Home',
+        type: 'circle',
+        source: 'My Home',
+        paint: {
+          'circle-radius': 5,
+          'circle-color': 'blue'
+        }
+      });
+
+      map.addLayer({
+        id: 'MyBaseMap',
+        type: 'fill',
+        source: 'MyBaseMap',
+        paint: {
+          'fill-color': 'red',
+          'fill-opacity': 0.4,
+          'fill-outline-color': 'red'
+        },
+        'source-layer': 'mytilesetlayer'
+      },
+       
+        'my-geojson-layer'
+      );
+    });
+  </script>
+
+
+  <img
+    src="Pic for Profile.jpg"
+    width="450"
+    style="margin-top: 20px; display:block; margin-left:auto; margin-right:auto;"
+  >
+
+ 
+  <div class="container">
+    <h1>Im Trying to Love Webpage Design Everyday</h1>
+    <button onclick="alert('u just click!')">Try!</button>
+  </div>
+</body>
+</html>
